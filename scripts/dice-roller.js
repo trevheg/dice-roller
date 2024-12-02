@@ -47,7 +47,7 @@ d100.addEventListener("click", () => {
     addDie(100);
 });
 
-function addDie(die) { // adds or subtracts dice from the dice object, ie dice the user is rolling
+function addDie(die) { // adds or subtracts dice from the dice object, ie dice the user will roll
 
     if (addDice.checked) { // checks whether "add" or "subtract" is checked and adds and subtracts dice accordingly
         dice[die]++;
@@ -57,10 +57,21 @@ function addDie(die) { // adds or subtracts dice from the dice object, ie dice t
 
     chosenDice.textContent = "";
     for (const [die, rolls] of Object.entries(dice)) { // shows what dice the user has selected
-        if (rolls != 0) {
-
-            chosenDice.textContent += `${rolls}D${die} +`
+        if (rolls > 0) {
+            if (chosenDice.textContent.length > 0) {
+                chosenDice.textContent += " + ";
+            } // adds a + to the entry only if it isn't the first entry
+            chosenDice.textContent += `${rolls}D${die}`
+        } else if (rolls < 0) {
+            if (chosenDice.textContent.length < 0) {
+                chosenDice.textContent += " ";
+            }
+            chosenDice.textContent += `- ${Math.abs(rolls)  }D${die}`
         }
+    }
+
+    if (modifier.value != 0) {  // adds a + for modifier only if there is text in the modifier box
+        chosenDice.textContent += " +"
     }
 
 }
@@ -88,10 +99,13 @@ roll.addEventListener("click", () => { // rolls the user's selected dice
             }
         }       
     }
-    if (modifier.value != 0) {
+    if (modifier.value > 0) {
         total += Number(modifier.value);
 
         myRolls += ` + ${modifier.value}`;
+    } else if (modifier.value < 0) {
+        total += Number(modifier.value);
+        myRolls += ` - ${Math.abs(modifier.value)}`;
     }
     console.log("you rolled " + total);
 
@@ -100,9 +114,6 @@ roll.addEventListener("click", () => { // rolls the user's selected dice
 })
 
 // To do:
-// make display say "- xDx"  instead of "+ -xDx" 
-// make display say "- x" instead of "+ -x"
-// allow for rolling of subtractive dice
 // roll history
 // expandable advanced options menu
 //  roll with advantage
