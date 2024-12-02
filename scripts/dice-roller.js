@@ -115,8 +115,10 @@ roll.addEventListener("click", () => { // rolls the user's selected dice
 
 // To do:
 // roll history
+// clear option
 // expandable advanced options menu
 //  roll with advantage
 //  roll with disadvantage
 //  lucky feat
 //  halfling luck
+// Put dice in a loop so if I add new dice buttons to the html they are automatically added to the JS
