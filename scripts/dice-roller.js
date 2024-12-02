@@ -10,6 +10,8 @@ const modifier = document.getElementById("modifier");
 const roll = document.getElementById("roll");
 const result = document.getElementById("result");
 const rolls = document.getElementById("rolls");
+const addDice = document.getElementById("addDice");
+const subtractDice = document.getElementById("subtractDice");
 
 
 const dice = {
@@ -45,35 +47,65 @@ d100.addEventListener("click", () => {
     addDie(100);
 });
 
-function addDie(die) {
+function addDie(die) { // adds or subtracts dice from the dice object, ie dice the user is rolling
 
-    dice[die]++;
-    
-    console.log(dice);
+    if (addDice.checked) { // checks whether "add" or "subtract" is checked and adds and subtracts dice accordingly
+        dice[die]++;
+    } else if (subtractDice.checked) {
+        dice[die]--;
+    }
+
     chosenDice.textContent = "";
-    for (const [die, rolls] of Object.entries(dice)) {
-        if (rolls > 0) {
+    for (const [die, rolls] of Object.entries(dice)) { // shows what dice the user has selected
+        if (rolls != 0) {
+
             chosenDice.textContent += `${rolls}D${die} +`
         }
     }
 
 }
 
-roll.addEventListener("click", () => {
+roll.addEventListener("click", () => { // rolls the user's selected dice
     let total = 0;
     let myRolls = "";
-    modifier.value = 0;
+    // modifier.value = 0;
     for (const [die, rolls] of Object.entries(dice)) {
-        for (let i = 0; i < rolls; i++) {
+        
+        for (let i = 0; i < Math.abs(rolls); i++) {
             let roll = Math.floor(Math.random() * die) + 1;
-            total += roll;
-            myRolls += `D${die}(${roll}) + `;
+            if (rolls > 0) {
+                total += roll;
+                if (myRolls.length > 0) {                    
+                    myRolls += ` + `;
+                }
+                myRolls += `D${die}(${roll})`
+            } else if (rolls < 0) {
+                total -= roll;
+                if (myRolls.length > 0) {                    
+                    myRolls += ` `;
+                }
+                myRolls += `- D${die}(${roll})`
+            }
         }       
     }
-    total += Number(modifier.value);
+    if (modifier.value != 0) {
+        total += Number(modifier.value);
+
+        myRolls += ` + ${modifier.value}`;
+    }
     console.log("you rolled " + total);
-    myRolls += modifier.value;
+
     rolls.innerHTML = myRolls;
     result.innerHTML = "You rolled " + total;
 })
 
+// To do:
+// make display say "- xDx"  instead of "+ -xDx" 
+// make display say "- x" instead of "+ -x"
+// allow for rolling of subtractive dice
+// roll history
+// expandable advanced options menu
+//  roll with advantage
+//  roll with disadvantage
+//  lucky feat
+//  halfling luck

@@ -3,7 +3,10 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-
+[type=radio] {
+    height: 1rem;
+    width: 1rem;
+}
 
 #modifier {
     width: 3rem;
