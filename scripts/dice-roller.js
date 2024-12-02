@@ -62,6 +62,7 @@ function addDie(die) {
 roll.addEventListener("click", () => {
     let total = 0;
     let myRolls = "";
+    modifier.value = 0;
     for (const [die, rolls] of Object.entries(dice)) {
         for (let i = 0; i < rolls; i++) {
             let roll = Math.floor(Math.random() * die) + 1;
