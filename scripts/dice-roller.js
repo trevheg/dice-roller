@@ -13,7 +13,7 @@ const rolls = document.getElementById("rolls");
 const addDice = document.getElementById("addDice");
 const subtractDice = document.getElementById("subtractDice");
 
-
+// This array has all the dice and their quantities that the user is going to roll
 const dice = {
     4: 0,
     6: 0,
@@ -24,7 +24,7 @@ const dice = {
     100: 0
 }
 
-
+// Adds event listeners for all the dice buttons
 d4.addEventListener("click", () => {   
     addDie(4);
 });
@@ -107,18 +107,20 @@ roll.addEventListener("click", () => { // rolls the user's selected dice
         total += Number(modifier.value);
         myRolls += ` - ${Math.abs(modifier.value)}`;
     }
-    console.log("you rolled " + total);
+    // console.log("you rolled " + total);
 
     rolls.innerHTML = myRolls;
     result.innerHTML = "You rolled " + total;
 })
 
 // To do:
+// subtracting dice come after adding dice
 // roll history
-// clear option
+// clear entry
 // expandable advanced options menu
 //  roll with advantage
 //  roll with disadvantage
 //  lucky feat
 //  halfling luck
 // Put dice in a loop so if I add new dice buttons to the html they are automatically added to the JS
+// find a way to have the same dice adding and subtracting (eg 1D4 - 1D4)
